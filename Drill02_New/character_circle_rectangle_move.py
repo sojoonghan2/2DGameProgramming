@@ -24,15 +24,15 @@ def run_rectangle():
     for x in range(50, 750 + 1, 10):
         render_frame(x, 90)
 
-    #right
+    # right
     for y in range(90, 550 + 1, 10):
         render_frame(750, y)
         
-    #top
+    # top
     for x in range(750, 50, -10):
         render_frame(x, 550)
 
-    #left
+    # left
     for y in range(550, 90, -10):
         render_frame(50, y)
     
