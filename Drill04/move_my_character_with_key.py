@@ -59,8 +59,8 @@ while running:
     x += dir * 5
     y += dir2 * 5
 
-    x = clamp(0, x, TUK_WIDTH)
-    y = clamp(0, y, TUK_HEIGHT)
+    x = clamp(50, x, TUK_WIDTH - 50)
+    y = clamp(50, y, TUK_HEIGHT - 70)
 
     if switch < 3:
         if way == 1:
