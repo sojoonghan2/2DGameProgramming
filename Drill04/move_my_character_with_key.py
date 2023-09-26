@@ -42,6 +42,12 @@ def draw_image():
     handle_events()
     switch += 1
 
+def MoveMotion():
+    character.clip_composite_draw(frame * 145, 1290, 150, 170, 0, 'r', x, y+20, 160, 200)
+
+def MoveMotionRe():
+    character.clip_composite_draw(frame * 145, 1290, 150, 170, 0, 'h', x, y+20, 160, 200)
+
 
 running = True
 x = TUK_WIDTH // 2
@@ -64,28 +70,45 @@ while running:
 
     if switch < 3:
         if way == 1:
-            character.clip_composite_draw(frame * 220, 820, 200, 180, 0, 'r', x, y, 200, 200)
+            if dir == 0 and dir2 == 0:
+                character.clip_composite_draw(frame * 220, 820, 200, 180, 0, 'r', x, y, 200, 200)
+            else:
+                MoveMotion()
         elif way == 0:
-            character.clip_composite_draw(frame * 220, 820, 200, 180, 0, 'h', x, y, 200, 200)
+            if dir == 0 and dir2 == 0:
+                character.clip_composite_draw(frame * 220, 820, 200, 180, 0, 'h', x, y, 200, 200)
+            else:
+                MoveMotionRe()
         draw_image()
         frame = (frame + 1) % 3
     elif (switch < 7) and (switch >= 3):
         if way == 1:
-            character.clip_composite_draw(frame * 220, 600, 200, 180, 0, 'r', x, y, 200, 200)
+            if dir == 0 and dir2 == 0:
+                character.clip_composite_draw(frame * 220, 600, 200, 180, 0, 'r', x, y, 200, 200)
+            else:
+                MoveMotion()
         elif way == 0:
-            character.clip_composite_draw(frame * 220, 600, 200, 180, 0, 'h', x, y, 200, 200)
+            if dir == 0 and dir2 == 0:
+                character.clip_composite_draw(frame * 220, 600, 200, 180, 0, 'h', x, y, 200, 200)
+            else:
+                MoveMotionRe()
         draw_image()
         frame = (frame + 1) % 4
     elif (switch < 11) and (switch >= 7):
         if way == 1:
-            character.clip_composite_draw(frame * 185, 990, 160, 135, 0, 'r', x + 20, y + 20, 170, 160)
+            if dir == 0 and dir2 == 0:
+                character.clip_composite_draw(frame * 185, 990, 160, 135, 0, 'r', x + 20, y + 20, 170, 160)
+            else:
+                MoveMotion()
         elif way == 0:
-            character.clip_composite_draw(frame * 185, 990, 160, 135, 0, 'h', x - 20, y + 20, 170, 160)
+            if dir == 0 and dir == 0:
+                character.clip_composite_draw(frame * 185, 990, 160, 135, 0, 'h', x - 20, y + 20, 170, 160)
+            else:
+                MoveMotionRe()
         draw_image()
         frame = (frame + 1) % 4
     elif switch >= 11:
         switch = 0
-
     delay(0.05)
 
 close_canvas()
