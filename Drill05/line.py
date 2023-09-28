@@ -51,14 +51,28 @@ def draw_point(p):
 
 
 def draw_line(p1, p2):
-    # fill here
-    pass
+    draw_big_point(p1)
+    draw_big_point(p2)
+
+    x1, y1 = p1[0], p1[1]
+    x2, y2 = p2[0], p2[1]
+
+    for i in range(0, 100 + 1, 10):
+        t = i / 100
+        x = (1 - t) * x1 + t * x2
+        y = (1 - t) * y1 + t * y2
+        draw_point((x, y))
+
+    # 맨 마지막 점은 무조건 찍도록 함
+    draw_point(p2)
 
 
 prepare_turtle_canvas()
 
 
-# fill here
-
+points = [(random.randint(-500, 500), random.randint(-350, 350)) for i in range(10)]
+for i in range(0, len(points) - 1):
+    draw_line(points[i], points[i + 1])
+draw_line(points[-1], points[0])
 
 turtle.done()
