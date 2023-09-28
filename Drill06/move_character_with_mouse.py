@@ -11,25 +11,12 @@ hand = load_image('hand_arrow.png')
 running = True
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 frame = 0
-hand_yPos = 0
-hand_xPos = 0
-temp_xPos = 0
-temp_yPos = 0
-
-hide_cursor()
-
-def makehand():
-    global hand_xPos
-    global hand_yPos
-    global temp_xPos
-    global temp_yPos
-    hand_xPos, hand_yPos = random.randint(0, TUK_WIDTH), random.randint(0, TUK_HEIGHT)
+hand_xPos, hand_yPos = TUK_WIDTH // 2, TUK_HEIGHT // 2  # 초기 위치 설정
+movement_interval = 0.01  # 캐릭터 이동 간격 (초)
 
 def movetohand():
     global hand_xPos
     global hand_yPos
-    global temp_xPos
-    global temp_yPos
     global x
     global y
     global frame
@@ -39,23 +26,24 @@ def movetohand():
         y = (1 - t) * y + t * hand_yPos
         clear_canvas()
         TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
-        if (hand_xPos - temp_xPos) > 0:
+        hand.draw(hand_xPos, hand_yPos)
+        if (hand_xPos - x) > 0:
             character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
         else:
             character.clip_composite_draw(frame * 100, 100 * 1, 100, 100, 0, 'h', x, y, 100, 100)
-        hand.draw(hand_xPos, hand_yPos)
         update_canvas()
         frame = (frame + 1) % 8
-        delay(0.01)
 
-makehand()
-movetohand()
+while running:
+    movetohand()
+    delay(movement_interval)
 
-while True:
-    if x == hand_xPos and y == hand_yPos:
-        temp_xPos = hand_xPos
-        temp_yPos = hand_yPos
-        makehand()
-        movetohand()
+    events = get_events()
+    for event in events:
+        if event.type == SDL_MOUSEBUTTONDOWN:
+            if event.button == SDL_BUTTON_LEFT:
+                hand_xPos, hand_yPos = event.x, TUK_HEIGHT - 1 - event.y
+        elif event.type == SDL_QUIT:
+            running = False
 
 close_canvas()
