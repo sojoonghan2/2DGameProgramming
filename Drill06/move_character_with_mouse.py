@@ -11,8 +11,8 @@ hand = load_image('hand_arrow.png')
 running = True
 x, y = TUK_WIDTH // 2, TUK_HEIGHT // 2
 frame = 0
-hand_xPos, hand_yPos = TUK_WIDTH // 2, TUK_HEIGHT // 2  # 초기 위치 설정
-movement_interval = 0.01  # 캐릭터 이동 간격 (초)
+hand_xPos, hand_yPos = TUK_WIDTH // 2, TUK_HEIGHT // 2
+movement_interval = 0.01
 
 def movetohand():
     global hand_xPos
@@ -20,6 +20,11 @@ def movetohand():
     global x
     global y
     global frame
+
+    dx = hand_xPos - x
+    dy = hand_yPos - y
+    direction = (dx > 0)
+
     for i in range(0, 100 + 1, 1):
         t = i / 100
         x = (1 - t) * x + t * hand_xPos
@@ -27,12 +32,15 @@ def movetohand():
         clear_canvas()
         TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
         hand.draw(hand_xPos, hand_yPos)
-        if (hand_xPos - x) > 0:
+
+        if direction:
             character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
         else:
             character.clip_composite_draw(frame * 100, 100 * 1, 100, 100, 0, 'h', x, y, 100, 100)
+
         update_canvas()
         frame = (frame + 1) % 8
+
 
 while running:
     movetohand()
