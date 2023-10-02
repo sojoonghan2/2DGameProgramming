@@ -25,26 +25,44 @@ def handle_events():
 
 def reset_World():
     global running, cx, cy, frame
-    global hx, hy
+    global hx, hy, sx, sy
+    global t
+    global action
+
     running = True
     cx, cy = TUK_WIDTH // 2, TUK_HEIGHT // 2
     frame = 0
+    action = 3
 
+    # 시작점
+    sx, sy = cx, cy
+    # 끝점
     # hx, hy = TUK_WIDTH - 50, TUK_HEIGHT - 50
     hx, hy = random.randint(0, TUK_WIDTH), random.randint(0, TUK_HEIGHT)
+    t = 0.0
 
 
 def render_world():
     clear_canvas()
     TUK_ground.draw(TUK_WIDTH // 2, TUK_HEIGHT // 2)
     arrow.draw(hx, hy)
-    character.clip_draw(frame * 100, 100 * 1, 100, 100, cx, cy)
+    character.clip_draw(frame * 100, 100 * action, 100, 100, cx, cy)
     update_canvas()
 
 
 def update_world():
     global frame
+    global cx, cy
+    global t
+    global action
+
     frame = (frame + 1) % 8
+    action = 1 if cx < hx else 0
+
+    if t <= 1.0:
+        cx = (1-t) * sx + t * hx
+        cy = (1-t) * sy + t * hy
+        t += 0.01
 
 
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
