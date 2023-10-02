@@ -41,7 +41,7 @@ def reset_World():
     frame = 0
     action = 3
 
-    points = [  ]
+    points = []
     set_new_target_arrow()
 
 
@@ -66,6 +66,7 @@ def set_new_target_arrow():
         action = 3 if action == 1 else 2
         frame = 0
         target_exists = False
+
 
 def render_world():
     clear_canvas()
