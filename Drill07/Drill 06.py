@@ -39,7 +39,7 @@ def reset_World():
     action = 3
 
     points = [ (100, 900), (1200, 800), (500, 100) ]
-    # set_new_target_arrow()
+    set_new_target_arrow()
 
 
 def set_new_target_arrow():
@@ -48,7 +48,7 @@ def set_new_target_arrow():
     # 시작점
     sx, sy = cx, cy
     # 끝점
-    hx, hy = random.randint(0, TUK_WIDTH), random.randint(0, TUK_HEIGHT)
+    hx, hy = points[0]
     t = 0.0
     action = 1 if sx < hx else 0
     frame = 0
@@ -71,14 +71,14 @@ def update_world():
     global action
 
     frame = (frame + 1) % 8
-    # if t <= 1.0:
-    #     cx = (1 - t) * sx + t * hx
-    #     cy = (1 - t) * sy + t * hy
-    #     t += 0.001
-    # else:
-    #     # 캐릭터 위치를 목적지 위치와 정확히 일치시킴
-    #     cx, cy = hx, hy
-    #     set_new_target_arrow()
+    if t <= 1.0:
+        cx = (1 - t) * sx + t * hx
+        cy = (1 - t) * sy + t * hy
+        t += 0.001
+    else:
+        # 캐릭터 위치를 목적지 위치와 정확히 일치시킴
+        cx, cy = hx, hy
+        set_new_target_arrow()
 
 
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
