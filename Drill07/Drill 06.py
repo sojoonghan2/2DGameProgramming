@@ -97,6 +97,8 @@ def update_world():
             # 목표 지점에 도착시, 필요 없는 점 제거
             del points[0]
             set_new_target_arrow()
+    elif points:
+        set_new_target_arrow()
 
 
 open_canvas(TUK_WIDTH, TUK_HEIGHT)
