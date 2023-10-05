@@ -39,7 +39,7 @@ class SmallBall:
 
     def update(self):
         if self.y > 50:
-            self.y -= random.randint(5, 10)
+            self.y -= random.randint(1, 10)
 
 
 class BigBall:
@@ -53,7 +53,7 @@ class BigBall:
 
     def update(self):
         if self.y > 60:
-            self.y -= random.randint(5, 10)
+            self.y -= random.randint(1, 10)
 
 
 def handle_events():
