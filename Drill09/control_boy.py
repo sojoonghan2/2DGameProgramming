@@ -5,8 +5,6 @@ from grass import Grass
 
 
 # Game object class here
-
-
 def handle_events():
     global running
 
@@ -35,7 +33,6 @@ def reset_world():
 
     boy = Boy()
     world.append(boy)
-
 
 
 def update_world():
