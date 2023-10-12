@@ -1,10 +1,12 @@
 from pico2d import *
 
-from boy import Boy
 from grass import Grass
+from boy import Boy
 
 
 # Game object class here
+
+
 def handle_events():
     global running
 
@@ -35,6 +37,7 @@ def reset_world():
     world.append(boy)
 
 
+
 def update_world():
     for o in world:
         o.update()
@@ -55,6 +58,6 @@ while running:
     handle_events()
     update_world()
     render_world()
-    delay(0.05)
+    delay(0.01)
 # finalization code
 close_canvas()
