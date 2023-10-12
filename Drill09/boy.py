@@ -50,7 +50,6 @@ class Idle:
 
 
 class Sleep:
-
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
