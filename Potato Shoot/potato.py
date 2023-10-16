@@ -21,8 +21,6 @@ def left_down(e): return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].k
 def left_up(e): return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
 
-def a_down(e): return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_a
-
 
 class Idle:
     @staticmethod
@@ -94,45 +92,14 @@ class Run:
         potato.image.clip_draw(potato.frame * 100, potato.action * 100, 100, 100, potato.x, potato.y)
 
 
-class AutoRun():
-    @staticmethod
-    def do(potato):
-        potato.frame = (potato.frame + 1) % 8
-        potato.x += potato.dir * 10
-        if potato.dir == 1 and potato.x > 800:
-            potato.dir, potato.action = -1, 0
-        elif potato.dir == -1 and potato.x < 0:
-            potato.dir, potato.action = 1, 1
-        if get_time() - potato.statr_time > 5:
-            potato.state_machine.hendle_event(('TIME_OUT', 0))
-
-    @staticmethod
-    def enter(potato, e):
-        potato.statr_time = get_time()
-        if potato.dir == 1:
-            potato.action = 1
-        else:
-            potato.action = 0
-        pass
-
-    @staticmethod
-    def exit(potato, e):
-        pass
-
-    @staticmethod
-    def draw(potato):
-        potato.image.clip_draw(potato.frame * 100, potato.action * 100, 100, 100, potato.x, potato.y + 25, 150, 150)
-
-
 class StateMachine:
     def __init__(self, potato):
         self.potato = potato
         self.cur_state = Idle
         self.table = {
-            Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep, a_down: AutoRun},
-            Run: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle, a_down: AutoRun},
-            Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle, a_down: AutoRun},
-            AutoRun: {right_down: Run, left_down: Run, time_out: Idle}
+            Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep},
+            Run: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle},
+            Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle}
 
         }
 
