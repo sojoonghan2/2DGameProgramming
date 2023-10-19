@@ -5,6 +5,7 @@ from pico2d import get_time, load_image, SDL_KEYDOWN, SDL_KEYUP, SDLK_SPACE, SDL
 import game_world
 from ball import Ball
 
+
 # state event check
 # ( state event type, event value )
 
@@ -23,14 +24,16 @@ def left_down(e):
 def left_up(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
 
+
 def space_down(e):
     return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
+
 
 def time_out(e):
     return e[0] == 'TIME_OUT'
 
-# time_out = lambda e : e[0] == 'TIME_OUT'
 
+# time_out = lambda e : e[0] == 'TIME_OUT'
 
 
 class Idle:
@@ -43,7 +46,7 @@ class Idle:
             boy.action = 3
         boy.dir = 0
         boy.frame = 0
-        boy.wait_time = get_time() # pico2d import 필요
+        boy.wait_time = get_time()  # pico2d import 필요
         pass
 
     @staticmethod
@@ -62,14 +65,13 @@ class Idle:
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
 
 
-
 class Run:
 
     @staticmethod
     def enter(boy, e):
-        if right_down(e) or left_up(e): # 오른쪽으로 RUN
+        if right_down(e) or left_up(e):  # 오른쪽으로 RUN
             boy.dir, boy.face_dir, boy.action = 1, 1, 1
-        elif left_down(e) or right_up(e): # 왼쪽으로 RUN
+        elif left_down(e) or right_up(e):  # 왼쪽으로 RUN
             boy.dir, boy.face_dir, boy.action = -1, -1, 0
 
     @staticmethod
@@ -86,7 +88,6 @@ class Run:
     @staticmethod
     def draw(boy):
         boy.image.clip_draw(boy.frame * 100, boy.action * 100, 100, 100, boy.x, boy.y)
-
 
 
 class Sleep:
@@ -144,9 +145,6 @@ class StateMachine:
         self.cur_state.draw(self.boy)
 
 
-
-
-
 class Boy:
     def __init__(self):
         self.x, self.y = 400, 90
@@ -168,7 +166,7 @@ class Boy:
         self.state_machine.draw()
 
     def fire_ball(self):
-        ball = Ball()
+        ball = Ball(self.x, self.y, self.face_dir * 10)
         game_world.add(ball)
         if self.face_dir == -1:
             print('FIRE BALL LEFT')

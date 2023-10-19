@@ -36,7 +36,6 @@ def create_world():
     game_world.add(boy)
 
 
-
 def update_world():
     game_world.update()
 
