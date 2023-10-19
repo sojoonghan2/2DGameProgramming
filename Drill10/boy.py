@@ -167,7 +167,7 @@ class Boy:
 
     def fire_ball(self):
         ball = Ball(self.x, self.y, self.face_dir * 10)
-        game_world.add(ball)
+        game_world.add(ball, 1)
         if self.face_dir == -1:
             print('FIRE BALL LEFT')
         elif self.face_dir == 1:
