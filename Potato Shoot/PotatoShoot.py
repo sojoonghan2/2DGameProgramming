@@ -59,6 +59,7 @@ def reset_world():
     # 1열 1개
     bottle7 = Bottle(130, 440)
     world.append(bottle7)
+
     potato = Potato()
     world.append(potato)
 
