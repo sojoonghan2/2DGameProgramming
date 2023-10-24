@@ -4,10 +4,6 @@ from ground import Ground
 from potato import Potato
 from bottle import Bottle
 
-
-# Game object class here
-
-
 def handle_events():
     global running
 
@@ -32,9 +28,11 @@ def reset_world():
     running = True
     world = []
 
+    # 땅
     ground = Ground()
     world.append(ground)
 
+    # 병
     # 4열 4개
     bottle1 = Bottle(70, 500)
     world.append(bottle1)
@@ -60,7 +58,8 @@ def reset_world():
     bottle7 = Bottle(130, 440)
     world.append(bottle7)
 
-    potato = Potato()
+    # 감자
+    potato = Potato(170, 100)
     world.append(potato)
 
 
