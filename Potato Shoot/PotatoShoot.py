@@ -3,6 +3,7 @@ from pico2d import *
 from ground import Ground
 from potato import Potato
 from bottle import Bottle
+from water import Water
 
 def handle_events():
     global running
@@ -24,6 +25,7 @@ def reset_world():
     global world
     global potato
     global bottle
+    global water
 
     running = True
     world = []
@@ -31,6 +33,12 @@ def reset_world():
     # 땅
     ground = Ground()
     world.append(ground)
+
+    # 물
+    water1 = Water(-230, -120)
+    world.append(water1)
+    water2 = Water(50, -120)
+    world.append(water2)
 
     # 병
     # 4열 4개
