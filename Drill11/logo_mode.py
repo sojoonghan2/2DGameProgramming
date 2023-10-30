@@ -1,22 +1,19 @@
+import game_framework
 from pico2d import get_events, load_image, clear_canvas, update_canvas, get_time
 
 def init():
     global image
-    global running
     global logo_start_time
 
     logo_start_time = get_time()
     image = load_image('tuk_credit.png')
-    running = True
 
 def finish():
     pass
 
 def update():
-    global running
-
     if get_time() - logo_start_time >= 2.0:
-        running = False
+        game_framework.quit()
 
 def draw():
     clear_canvas()
