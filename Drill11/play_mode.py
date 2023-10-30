@@ -43,4 +43,4 @@ def draw():
 
 
 def finish():
-    pass
+    game_world.clear()
