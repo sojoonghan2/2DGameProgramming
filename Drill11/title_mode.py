@@ -33,3 +33,9 @@ def handle_events():
             game_framework.quit()
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
             game_framework.change_mode(play_mode)
+
+def pause():
+    pass
+
+def resume():
+    pass

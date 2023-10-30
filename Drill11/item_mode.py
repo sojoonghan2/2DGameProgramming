@@ -2,10 +2,9 @@ from pico2d import *
 
 import game_world
 import title_mode
-import item_mode
-from grass import Grass
-from boy import Boy
 import game_framework
+from pannel import Pannel
+
 
 # Game object class here
 
@@ -16,23 +15,13 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.change_mode(title_mode)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_i:
-            game_framework.push_mode(item_mode)
-        else:
-            boy.handle_event(event)
+            game_framework.pop_mode()
 
 
 def init():
-    global grass
-    global team
-    global boy
-
-    grass = Grass()
-    game_world.add_object(grass, 0)
-
-    boy = Boy()
-    game_world.add_object(boy, 1)
+    global pannel
+    pannel = Pannel()
+    game_world.add_object(pannel, 3)
 
 
 def update():
@@ -46,7 +35,7 @@ def draw():
 
 
 def finish():
-    game_world.clear()
+    game_world.remove_object(pannel)
 
 def pause():
     pass

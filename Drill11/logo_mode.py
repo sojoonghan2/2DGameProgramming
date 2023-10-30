@@ -28,3 +28,9 @@ def draw():
 
 def handle_events():
     events = get_events()
+
+def pause():
+    pass
+
+def resume():
+    pass
