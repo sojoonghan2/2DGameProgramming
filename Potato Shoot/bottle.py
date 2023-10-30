@@ -10,7 +10,7 @@ class Bottle:
         self.x, self.y = x, y
 
     def draw(self):
-        self.image.draw_to_origin(self.x, self.y, 100, 150)
+        self.image.draw_to_origin(self.x, self.y, 130, 180)
 
     def update(self):
         pass

@@ -7,7 +7,7 @@ class Water:
         self.x, self.y = x, y
 
     def draw(self):
-        self.image.draw_to_origin(self.x, self.y, 540, 960)
+        self.image.draw_to_origin(self.x, self.y, 540, 1280)
 
     def update(self):
         pass

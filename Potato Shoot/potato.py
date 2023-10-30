@@ -42,7 +42,7 @@ class Potato:
     def __init__(self, x = 300, y = 90):
         self.x, self.y = x, y
         self.action = 3
-        self.image = load_image('Resource\\Potato\\potato_1_2.png')
+        self.image = load_image('Resource\\Potato\\nomal1.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
 

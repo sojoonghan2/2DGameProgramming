@@ -37,37 +37,37 @@ def reset_world():
     # 물
     water1 = Water(-230, -120)
     world.append(water1)
-    water2 = Water(50, -120)
+    water2 = Water(230, -120)
     world.append(water2)
 
     # 병
     # 4열 4개
-    bottle1 = Bottle(70, 500)
+    bottle1 = Bottle(80, 800)
     world.append(bottle1)
-    bottle2 = Bottle(110, 500)
+    bottle2 = Bottle(160, 800)
     world.append(bottle2)
-    bottle3 = Bottle(150, 500)
+    bottle3 = Bottle(240, 800)
     world.append(bottle3)
-    bottle4 = Bottle(190, 500)
+    bottle4 = Bottle(320, 800)
     world.append(bottle4)
     # 3열 3개
-    bottle5 = Bottle(90, 480)
+    bottle5 = Bottle(120, 770)
     world.append(bottle5)
-    bottle6 = Bottle(130, 480)
+    bottle6 = Bottle(200, 770)
     world.append(bottle6)
-    bottle4 = Bottle(170, 480)
+    bottle4 = Bottle(280, 770)
     world.append(bottle4)
     # 2열 2개
-    bottle5 = Bottle(110, 460)
+    bottle5 = Bottle(160, 740)
     world.append(bottle5)
-    bottle6 = Bottle(150, 460)
+    bottle6 = Bottle(240, 740)
     world.append(bottle6)
     # 1열 1개
-    bottle7 = Bottle(130, 440)
+    bottle7 = Bottle(200, 710)
     world.append(bottle7)
 
     # 감자
-    potato = Potato(170, 100)
+    potato = Potato(250, 100)
     world.append(potato)
 
 
@@ -85,7 +85,7 @@ def render_world():
     update_canvas()
 
 
-open_canvas(360, 640)
+open_canvas(540, 960)
 reset_world()
 # game loop
 while running:
