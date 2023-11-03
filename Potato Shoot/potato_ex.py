@@ -100,15 +100,14 @@ class StateMachine:
             Idle: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, time_out: Sleep},
             Run: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle},
             Sleep: {right_down: Run, left_down: Run, left_up: Run, right_up: Run, space_down: Idle}
-
         }
 
     def start(self):
         self.cur_state.enter(self.potato, ('START', 0))
 
-    def hendle_event(self, e):
-        for cheak_event, next_state in self.table[self.cur_state].items():
-            if cheak_event(e):
+    def handle_event(self, e):
+        for check_event, next_state in self.table[self.cur_state].items():
+            if check_event(e):
                 self.cur_state.exit(self.potato, e)
                 self.cur_state = next_state
                 self.cur_state.enter(self.potato, e)
