@@ -122,7 +122,7 @@ class Potato:
 
     check = False
 
-    def __init__(self, x=300, y=90):
+    def __init__(self, x = 300, y = 90):
         self.x, self.y = x, y
         self.dir = 1
         self.image = load_image('Resource\\Potato\\normal1.png')
