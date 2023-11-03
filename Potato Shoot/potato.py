@@ -1,6 +1,5 @@
-from pico2d import load_image, get_time
-from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_a
-import math
+from pico2d import load_image
+from sdl2 import SDL_KEYDOWN, SDLK_SPACE, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT
 
 
 class Idle:
@@ -29,7 +28,7 @@ class StateMachine:
     def start(self):
         pass
 
-    def hendle_event(self, e):
+    def handle_event(self, e):
         pass
 
     def update(self):
@@ -50,7 +49,7 @@ class Potato:
         self.state_machine.update()
 
     def handle_event(self, event):
-        self.state_machine.hendle_event(('INPUT', event))
+        self.state_machine.handle_event(('INPUT', event))
         pass
 
     def draw(self):
