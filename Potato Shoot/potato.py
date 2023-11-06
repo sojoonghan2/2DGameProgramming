@@ -52,7 +52,6 @@ class Moving:
 
     @staticmethod
     def enter(potato, e):
-        # 꾹 눌러도 일정 범위를 넘으면 이동이 멈추도록 수정
         if right_down(e) or left_up(e):
             potato.dir = 1
         elif left_down(e) or right_up(e):
