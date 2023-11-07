@@ -11,4 +11,3 @@ class Grass:
         self.image.draw(400, 30)
         self.image.draw(1200, 30)
 
-

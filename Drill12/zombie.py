@@ -1,6 +1,7 @@
 import random
 import math
 import game_framework
+import game_world
 
 from pico2d import *
 
@@ -50,8 +51,16 @@ class Zombie:
             Zombie.images['Walk'][int(self.frame)].composite_draw(0, 'h', self.x, self.y, 200, 200)
         else:
             Zombie.images['Walk'][int(self.frame)].draw(self.x, self.y, 200, 200)
+        draw_rectangle(*self.get_bb())  # 튜플을 풀어 헤쳐서 각각 인자로 전달
 
 
     def handle_event(self, event):
         pass
 
+    def get_bb(self):
+        return self.x - 100, self.y - 100, self.x + 100, self.y + 100
+
+    def handle_collision(self, group, other):
+        if group == 'zombie:ball':
+            game_world.remove_object(self)
+            print('check')
