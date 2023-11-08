@@ -1,5 +1,8 @@
-from pico2d import load_image
-from sdl2 import SDL_KEYDOWN, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP, SDL_BUTTON_LEFT
+from pico2d import load_image, draw_rectangle, SDL_BUTTON_LEFT
+from sdl2 import SDL_KEYDOWN, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_SPACE, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
+
+from point import Point
+import game_world
 
 
 def right_down(e): return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_RIGHT
@@ -12,6 +15,12 @@ def left_down(e): return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].k
 
 
 def left_up(e): return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_LEFT
+
+
+def space_down(e): return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_SPACE
+
+
+def space_up(e): return e[0] == 'INPUT' and e[1].type == SDL_KEYUP and e[1].key == SDLK_SPACE
 
 
 def mouse_down(e): return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN and e[1].key == SDL_BUTTON_LEFT
@@ -35,7 +44,6 @@ class Idle:
 
     @staticmethod
     def draw(potato):
-        print("Idle")
         potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
 
 
@@ -48,7 +56,6 @@ class Moving:
         if potato.x < 140 and potato.dir == -1:
             return
         potato.x += potato.dir * 1
-
 
     @staticmethod
     def enter(potato, e):
@@ -63,20 +70,45 @@ class Moving:
 
     @staticmethod
     def draw(potato):
-        print("Move")
         potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
+
+
+class Waiting:
+    @staticmethod
+    def do(potato):
+        potato.power += 1
+        if potato.power > 100:
+            potato.power = 0
+
+    @staticmethod
+    def enter(potato, e):
+        # 화살표
+        global point
+        point = Point(potato.x - 50, potato.y + 20)
+        game_world.add_object(point, 3)
+
+    @staticmethod
+    def exit(potato, e):
+        game_world.remove_object(point)
+
+    @staticmethod
+    def draw(potato):
+        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
+        for i in range(0, potato.power):
+            draw_rectangle(100, 300, 100 + i * 3.5, 400)
+        draw_rectangle(100, 300, 450, 400)
 
 
 class Rolling:
     @staticmethod
     def do(potato):
-        pass
-
+        potato.y += 1
+        # 감자의 힘에 따라서 굴러가는 각도 변경
+        potato.angle += potato.power / 500
 
     @staticmethod
     def enter(potato, e):
         pass
-
 
     @staticmethod
     def exit(potato, e):
@@ -84,8 +116,7 @@ class Rolling:
 
     @staticmethod
     def draw(potato):
-        print("Rolling")
-        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
+        potato.image.clip_composite_draw(0, 0, 150, 150, potato.angle, 'r', potato.x, potato.y + 20, 100, 100)
 
 
 class StateMachine:
@@ -93,8 +124,9 @@ class StateMachine:
         self.potato = potato
         self.cur_state = Idle
         self.table = {
-            Idle: {right_down: Moving, left_down: Moving, left_up: Moving, right_up: Moving, mouse_down: Rolling},
+            Idle: {right_down: Moving, left_down: Moving, left_up: Moving, right_up: Moving, space_down: Waiting},
             Moving: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle},
+            Waiting: {space_down: Rolling},
             Rolling: {}
         }
 
@@ -118,11 +150,12 @@ class StateMachine:
 
 
 class Potato:
-
     check = False
 
-    def __init__(self, x = 300, y = 90):
+    def __init__(self, x=300, y=90):
         self.x, self.y = x, y
+        self.angle = 0
+        self.power = 0
         self.dir = 1
         self.image = load_image('Resource\\Potato\\normal1.png')
         self.state_machine = StateMachine(self)

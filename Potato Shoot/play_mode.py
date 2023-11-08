@@ -5,6 +5,7 @@ from ground import Ground
 from potato import Potato
 from bottle import Bottle
 from water import Water
+from point import Point
 
 def handle_events():
     global running
@@ -71,6 +72,8 @@ def init():
     game_world.add_object(potato, 2)
 
 
+
+
 def finish():
     game_world.clear()
     pass
@@ -78,7 +81,6 @@ def finish():
 
 def update():
     game_world.update()
-    # delay(0.1)
 
 
 def draw():

@@ -23,7 +23,8 @@ def render():
 def remove_object(o):
     for layer in objects:
         if o in layer:
-            layer.remove(o)
+            layer.remove(o) # 시각적 월드에서 지움
+            del o # 객체 자체를 완전히 메모리에서 제거
             return
     raise ValueError('Cannot delete non existing object')
 
