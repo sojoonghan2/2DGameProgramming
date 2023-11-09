@@ -75,7 +75,7 @@ class Moving:
 
 
 # 굴리기 전 파워 설정
-class Waiting1:
+class PowerCharging:
     @staticmethod
     def do(potato):
         potato.power += 1
@@ -102,7 +102,7 @@ class Waiting1:
 
 
 # 굴리기 전 각도 설정
-class Waiting2:
+class AngleAdjustment:
     @staticmethod
     def do(potato):
         potato.power += 1
@@ -113,7 +113,6 @@ class Waiting2:
         if potato.angle < -0.5 and point.dir == -1:
             return
         potato.angle += point.dir * 0.01
-        print(potato.angle)
 
     @staticmethod
     def enter(potato, e):
@@ -173,10 +172,10 @@ class StateMachine:
         self.potato = potato
         self.cur_state = Idle
         self.table = {
-            Idle: {right_down: Moving, left_down: Moving, left_up: Moving, right_up: Moving, space_down: Waiting1},
+            Idle: {right_down: Moving, left_down: Moving, left_up: Moving, right_up: Moving, space_down: PowerCharging},
             Moving: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle},
-            Waiting1: {space_down: Rolling, right_down: Waiting2, left_down: Waiting2},
-            Waiting2: {right_up: Waiting1, left_up: Waiting1},
+            PowerCharging: {space_down: Rolling, right_down: AngleAdjustment, left_down: AngleAdjustment},
+            AngleAdjustment: {right_up: PowerCharging, left_up: PowerCharging},
             Rolling: {}
         }
 
