@@ -84,7 +84,7 @@ class Waiting:
     def enter(potato, e):
         # 화살표
         global point
-        point = Point(potato.x - 50, potato.y + 20)
+        point = Point(potato.x - 50, potato.y + 30)
         game_world.add_object(point, 3)
 
     @staticmethod
@@ -104,7 +104,7 @@ class Rolling:
     def do(potato):
         potato.y += 1
         # 감자의 힘에 따라서 굴러가는 각도 변경
-        potato.angle += potato.power / 500
+        potato.spin += potato.power / 500
 
     @staticmethod
     def enter(potato, e):
@@ -116,7 +116,7 @@ class Rolling:
 
     @staticmethod
     def draw(potato):
-        potato.image.clip_composite_draw(0, 0, 150, 150, potato.angle, 'r', potato.x, potato.y + 20, 100, 100)
+        potato.image.clip_composite_draw(0, 0, 150, 150, potato.spin, 'r', potato.x, potato.y + 20, 100, 100)
 
 
 class StateMachine:
@@ -154,8 +154,9 @@ class Potato:
 
     def __init__(self, x=300, y=90):
         self.x, self.y = x, y
-        self.angle = 0
+        self.spin = 0
         self.power = 0
+        self.angle = 0
         self.dir = 1
         self.image = load_image('Resource\\Potato\\normal1.png')
         self.state_machine = StateMachine(self)
