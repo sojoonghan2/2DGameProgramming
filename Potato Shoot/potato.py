@@ -29,6 +29,7 @@ def mouse_down(e): return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONDOWN a
 def mouse_up(e): return e[0] == 'INPUT' and e[1].type == SDL_MOUSEBUTTONUP and e[1].key == SDL_BUTTON_LEFT
 
 
+# 대기
 class Idle:
     @staticmethod
     def do(potato):
@@ -47,6 +48,7 @@ class Idle:
         potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
 
 
+# 좌우 이동
 class Moving:
     @staticmethod
     def do(potato):
@@ -72,6 +74,7 @@ class Moving:
         potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
 
 
+# 굴리기 전 파워 설정
 class Waiting1:
     @staticmethod
     def do(potato):
@@ -98,6 +101,7 @@ class Waiting1:
         draw_rectangle(100, 300, 450, 400)
 
 
+# 굴리기 전 각도 설정
 class Waiting2:
     @staticmethod
     def do(potato):
@@ -131,13 +135,25 @@ class Waiting2:
         draw_rectangle(100, 300, 450, 400)
 
 
+# 굴리기
 class Rolling:
     @staticmethod
     def do(potato):
         potato.y += 1
+        # 감자의 각도에 따라 굴러가는 각도 변경
         potato.x -= potato.angle / 2
-        # 감자의 힘에 따라서 굴러가는 각도 변경
+        # 감자의 힘에 따라서 굴러가는 스핀 변경
         potato.spin += potato.power / 500
+        # 일정 범위 넘으면 감자 위치 초기화
+        if potato.y > 1000:
+            potato.x = 250
+            potato.y = 100
+            potato.spin = 0
+            potato.power = 0
+            potato.angle = 0
+            potato.dir = 1
+            potato.state_machine.cur_state = Idle
+            return
 
     @staticmethod
     def enter(potato, e):
