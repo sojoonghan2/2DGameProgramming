@@ -52,7 +52,6 @@ class Moving:
     def do(potato):
         if potato.x > 400 and potato.dir == 1:
             return
-
         if potato.x < 140 and potato.dir == -1:
             return
         potato.x += potato.dir * 1
@@ -73,7 +72,7 @@ class Moving:
         potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
 
 
-class Waiting:
+class Waiting1:
     @staticmethod
     def do(potato):
         potato.power += 1
@@ -85,15 +84,48 @@ class Waiting:
         # 화살표
         global point
         point = Point(potato.x - 50, potato.y + 30)
-        game_world.add_object(point, 3)
 
     @staticmethod
     def exit(potato, e):
-        game_world.remove_object(point)
+        pass
 
     @staticmethod
     def draw(potato):
         potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
+        point.image.clip_composite_draw(0, 0, 150, 150, potato.angle, 'r', potato.x, potato.y + 100, 100, 100)
+        for i in range(0, potato.power):
+            draw_rectangle(100, 300, 100 + i * 3.5, 400)
+        draw_rectangle(100, 300, 450, 400)
+
+
+class Waiting2:
+    @staticmethod
+    def do(potato):
+        potato.power += 1
+        if potato.power > 100:
+            potato.power = 0
+        if potato.angle > 0.5 and point.dir == 1:
+            return
+        if potato.angle < -0.5 and point.dir == -1:
+            return
+        potato.angle += point.dir * 0.01
+        print(potato.angle)
+
+    @staticmethod
+    def enter(potato, e):
+        if right_down(e) or left_up(e):
+            point.dir = -1
+        elif left_down(e) or right_up(e):
+            point.dir = 1
+
+    @staticmethod
+    def exit(potato, e):
+        pass
+
+    @staticmethod
+    def draw(potato):
+        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
+        point.image.clip_composite_draw(0, 0, 150, 150, potato.angle, 'r', potato.x, potato.y + 100, 100, 100)
         for i in range(0, potato.power):
             draw_rectangle(100, 300, 100 + i * 3.5, 400)
         draw_rectangle(100, 300, 450, 400)
@@ -103,6 +135,7 @@ class Rolling:
     @staticmethod
     def do(potato):
         potato.y += 1
+        potato.x -= potato.angle / 2
         # 감자의 힘에 따라서 굴러가는 각도 변경
         potato.spin += potato.power / 500
 
@@ -124,9 +157,10 @@ class StateMachine:
         self.potato = potato
         self.cur_state = Idle
         self.table = {
-            Idle: {right_down: Moving, left_down: Moving, left_up: Moving, right_up: Moving, space_down: Waiting},
+            Idle: {right_down: Moving, left_down: Moving, left_up: Moving, right_up: Moving, space_down: Waiting1},
             Moving: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle},
-            Waiting: {space_down: Rolling},
+            Waiting1: {space_down: Rolling, right_down: Waiting2, left_down: Waiting2},
+            Waiting2: {right_up: Waiting1, left_up: Waiting1},
             Rolling: {}
         }
 
