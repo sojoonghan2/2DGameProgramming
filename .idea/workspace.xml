@@ -5,10 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f20a90c-90e7-40fa-9fd3-aebfdbdb9a69" name="변경" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drill11/bird.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drill11/boy.py" beforeDir="false" afterPath="$PROJECT_DIR$/Drill11/boy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drill12/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Drill12/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drill12/play_mode.py" beforeDir="false" afterPath="$PROJECT_DIR$/Drill12/play_mode.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drill12/zombie.py" beforeDir="false" afterPath="$PROJECT_DIR$/Drill12/zombie.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Potato Shoot/animation_sheet.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Potato Shoot/potato.py" beforeDir="false" afterPath="$PROJECT_DIR$/Potato Shoot/potato.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,15 +41,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/2DGP/2DGameProgramming/Drill11&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/2DGP/2DGameProgramming/Drill11",
+    "settings.editor.selected.configurable": "preferences.externalResources"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\2DGP\2DGameProgramming\Drill11" />
