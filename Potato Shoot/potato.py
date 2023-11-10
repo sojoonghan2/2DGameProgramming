@@ -2,7 +2,6 @@ from pico2d import load_image, draw_rectangle, SDL_BUTTON_LEFT
 from sdl2 import SDL_KEYDOWN, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_SPACE, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 
 from point import Point
-import game_world
 
 
 def right_down(e): return e[0] == 'INPUT' and e[1].type == SDL_KEYDOWN and e[1].key == SDLK_RIGHT
@@ -144,7 +143,7 @@ class Rolling:
         # 감자의 힘에 따라서 굴러가는 스핀 변경
         potato.spin += potato.power / 500
         # 일정 범위 넘으면 감자 위치 초기화
-        if potato.y > 1000:
+        if potato.y > 1500:
             potato.x = 250
             potato.y = 100
             potato.spin = 0
@@ -199,8 +198,6 @@ class StateMachine:
 
 
 class Potato:
-    check = False
-
     def __init__(self, x=300, y=90):
         self.x, self.y = x, y
         self.spin = 0
@@ -216,7 +213,6 @@ class Potato:
 
     def handle_event(self, event):
         self.state_machine.handle_event(('INPUT', event))
-        pass
 
     def draw(self):
         self.state_machine.draw()
