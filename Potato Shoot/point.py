@@ -2,7 +2,7 @@ from pico2d import load_image
 
 
 class Point:
-    def __init__(self, x = 140, y = 500):
+    def __init__(self, x=140, y=500):
         self.image = load_image('Resource\\UI\\icon_3_3.png')
         self.x, self.y = x, y
         self.dir = 0

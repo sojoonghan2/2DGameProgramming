@@ -1,6 +1,5 @@
-from pico2d import load_image
-
-import potato
+from pico2d import load_image, draw_rectangle
+import play_mode
 
 
 class Idle:
@@ -18,7 +17,7 @@ class Idle:
 
     @staticmethod
     def draw(bottle):
-        bottle.image.clip_composite_draw(0, 0, 500, 654, 0, 'r', bottle.x + 50, bottle.y + 100, 130, 180)
+        bottle.image.clip_composite_draw(0, 0, 500, 654, 0, 'r', bottle.x, bottle.y, 130, 180)
 
 
 class Fly:
@@ -36,7 +35,7 @@ class Fly:
 
     @staticmethod
     def draw(bottle):
-        bottle.image.clip_composite_draw(0, 0, 500, 654, 4, 'r', bottle.x + 50, bottle.y + 100, 130, 180)
+        bottle.image.clip_composite_draw(0, 0, 500, 654, 4, 'r', bottle.x, bottle.y, 130, 180)
 
 
 class StateMachine:
@@ -69,9 +68,17 @@ class Bottle:
 
     def draw(self):
         self.state_machine.draw()
+        draw_rectangle(*self.get_bb())  # 튜플을 풀어 헤쳐서 각각 인자로 전달
 
     def handle_event(self, event):
         pass
 
     def update(self):
         pass
+
+    def get_bb(self):
+        return self.x - 20, self.y - 50, self.x + 20, self.y + 50
+
+    def handle_collision(self, group, other):
+        if group == 'potato:bottle':
+            self.state_machine.cur_state = Fly
