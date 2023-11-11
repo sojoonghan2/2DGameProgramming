@@ -5,7 +5,8 @@ from ground import Ground
 from potato import Potato
 from bottle import Bottle
 from water import Water
-from point import Point
+from sdl2 import SDL_KEYDOWN
+import title_mode
 
 
 def handle_events():
@@ -14,7 +15,7 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.quit()
+            game_framework.change_mode(title_mode)
         else:
             potato.handle_event(event)
 
