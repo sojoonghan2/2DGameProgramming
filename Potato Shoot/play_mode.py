@@ -66,8 +66,7 @@ def init():
     game_world.add_object(potato, 2)
     game_world.add_collision_pair('potato:bottle', potato, None)
 
-    for i in range(10):
-        game_world.add_collision_pair('potato:bottle', None, bottle[i])
+    game_world.add_collision_pair('potato:bottle', None, bottle[9])
 
 
 def finish():
@@ -114,5 +113,4 @@ def next_stage():
     for i in range(10):
         bottle[i] = bottle2[i]
     game_world.add_objects(bottle, 2)
-    for i in range(10):
-        game_world.add_collision_pair('potato:bottle', None, bottle[i])
+    game_world.add_collision_pair('potato:bottle', None, bottle[9])

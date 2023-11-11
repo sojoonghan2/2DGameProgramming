@@ -84,4 +84,5 @@ class Bottle:
 
     def handle_collision(self, group, other):
         if group == 'potato:bottle':
-            self.state_machine.cur_state = Fly
+            # 경우의 수에 따라서 bottle[n]의 cur_state를 Fly로 설정
+            play_mode.bottle[0].state_machine.cur_state = Fly
