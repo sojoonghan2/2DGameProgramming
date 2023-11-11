@@ -84,6 +84,36 @@ class PowerCharging:
 
     @staticmethod
     def enter(potato, e):
+        pass
+
+    @staticmethod
+    def exit(potato, e):
+        pass
+
+    @staticmethod
+    def draw(potato):
+        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
+        for i in range(0, potato.power):
+            draw_rectangle(100, 300, 100 + i * 3.5, 400)
+        draw_rectangle(100, 300, 450, 400)
+
+
+# 굴리기 전 각도 설정
+class AngleAdjustment:
+    @staticmethod
+    def do(potato):
+        if potato.way == 0:
+            point.dir = 1
+        elif potato.way == 1:
+            point.dir = -1
+        if potato.angle > 1.0:
+            potato.way = 1
+        elif potato.angle < -1.0:
+            potato.way = 0
+        potato.angle += point.dir * 0.02
+
+    @staticmethod
+    def enter(potato, e):
         # 화살표
         global point
         point = Point(potato.x - 50, potato.y + 30)
@@ -96,49 +126,13 @@ class PowerCharging:
     def draw(potato):
         potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
         point.image.clip_composite_draw(0, 0, 150, 150, potato.angle, 'r', potato.x, potato.y + 100, 100, 100)
-        for i in range(0, potato.power):
-            draw_rectangle(100, 300, 100 + i * 3.5, 400)
-        draw_rectangle(100, 300, 450, 400)
-
-
-# 굴리기 전 각도 설정
-class AngleAdjustment:
-    @staticmethod
-    def do(potato):
-        potato.power += 1
-        if potato.power > 100:
-            potato.power = 0
-        if potato.angle > 0.5 and point.dir == 1:
-            return
-        if potato.angle < -0.5 and point.dir == -1:
-            return
-        potato.angle += point.dir * 0.01
-
-    @staticmethod
-    def enter(potato, e):
-        if right_down(e) or left_up(e):
-            point.dir = -1
-        elif left_down(e) or right_up(e):
-            point.dir = 1
-
-    @staticmethod
-    def exit(potato, e):
-        pass
-
-    @staticmethod
-    def draw(potato):
-        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
-        point.image.clip_composite_draw(0, 0, 150, 150, potato.angle, 'r', potato.x, potato.y + 100, 100, 100)
-        for i in range(0, potato.power):
-            draw_rectangle(100, 300, 100 + i * 3.5, 400)
-        draw_rectangle(100, 300, 450, 400)
 
 
 # 굴리기
 class Rolling:
     @staticmethod
     def do(potato):
-        potato.y += 1
+        potato.y += 5
         # 감자의 각도에 따라 굴러가는 각도 변경
         potato.x -= potato.angle / 2
         # 감자의 힘에 따라서 굴러가는 스핀 변경
@@ -160,7 +154,8 @@ class Rolling:
 
     @staticmethod
     def enter(potato, e):
-        pass
+        # 이곳에서 potato.case_num(경우의 수)을 계산
+        potato.case_num = (0.03076923076923077 * potato.x + -3.2076923076923084) + (-6 * potato.angle + 5) - 5
 
     @staticmethod
     def exit(potato, e):
@@ -178,8 +173,8 @@ class StateMachine:
         self.table = {
             Idle: {right_down: Moving, left_down: Moving, left_up: Moving, right_up: Moving, space_down: PowerCharging},
             Moving: {right_down: Idle, left_down: Idle, left_up: Idle, right_up: Idle},
-            PowerCharging: {space_down: Rolling, right_down: AngleAdjustment, left_down: AngleAdjustment},
-            AngleAdjustment: {right_up: PowerCharging, left_up: PowerCharging},
+            PowerCharging: {space_down: AngleAdjustment},
+            AngleAdjustment: {space_down: Rolling},
             Rolling: {}
         }
 
@@ -209,7 +204,9 @@ class Potato:
         self.power = 0
         self.angle = 0
         self.dir = 1
+        self.way = 0
         self.turn = 2
+        self.case_num = 0
         self.image = load_image('Resource\\Potato\\normal1.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
@@ -222,7 +219,6 @@ class Potato:
 
     def draw(self):
         self.state_machine.draw()
-        draw_rectangle(*self.get_bb())  # 튜플을 풀어 헤쳐서 각각 인자로 전달
 
     def get_bb(self):
         return self.x - 50, self.y - 20, self.x + 50, self.y + 60

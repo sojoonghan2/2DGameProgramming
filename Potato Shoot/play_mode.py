@@ -77,6 +77,7 @@ def finish():
 def update():
     game_world.update()
     game_world.handle_collisions()
+    print(bottle[9].die_time)
 
 
 def draw():
