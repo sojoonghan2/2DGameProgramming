@@ -91,3 +91,27 @@ def pause():
 
 def resume():
     pass
+
+
+def next_stage():
+    # 안됨
+    bottle_positions = [
+        # 4열
+        (150, 900), (230, 900), (310, 900), (390, 900),
+        # 3열
+        (190, 870), (270, 870), (350, 870),
+        # 2열
+        (230, 840), (310, 840),
+        # 1열
+        (270, 810)
+    ]
+    for i in range(10):
+        game_world.remove_object(bottle[i])
+    bottle2 = [Bottle(*bottle_positions[i]) for i in range(10)]
+    # bottle을 지우고 bottle을 다시 만들면 오류가 나지만
+    # bottle을 지우고 bottle2를 만들고 bottle2를 bottle에 넣으면 오류가 안남 왜지??
+    for i in range(10):
+        bottle[i] = bottle2[i]
+    game_world.add_objects(bottle, 2)
+    for i in range(10):
+        game_world.add_collision_pair('potato:bottle', None, bottle[i])

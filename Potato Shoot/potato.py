@@ -1,6 +1,7 @@
 from pico2d import load_image, draw_rectangle, SDL_BUTTON_LEFT
 from sdl2 import SDL_KEYDOWN, SDLK_RIGHT, SDL_KEYUP, SDLK_LEFT, SDLK_SPACE, SDL_MOUSEBUTTONDOWN, SDL_MOUSEBUTTONUP
 
+import play_mode
 from point import Point
 
 
@@ -144,13 +145,17 @@ class Rolling:
         potato.spin += potato.power / 500
         # 일정 범위 넘으면 감자 위치 초기화
         if potato.y > 1500:
-            potato.x = 250
+            potato.x = 270
             potato.y = 100
             potato.spin = 0
             potato.power = 0
             potato.angle = 0
             potato.dir = 1
+            potato.turn -= 1
             potato.state_machine.cur_state = Idle
+            if potato.turn == 0:
+                potato.turn = 2
+                play_mode.next_stage()
             return
 
     @staticmethod
@@ -204,6 +209,7 @@ class Potato:
         self.power = 0
         self.angle = 0
         self.dir = 1
+        self.turn = 2
         self.image = load_image('Resource\\Potato\\normal1.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()

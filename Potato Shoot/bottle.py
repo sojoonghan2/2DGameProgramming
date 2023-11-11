@@ -1,3 +1,5 @@
+import random
+
 from pico2d import load_image, draw_rectangle
 import play_mode
 
@@ -35,7 +37,7 @@ class Fly:
 
     @staticmethod
     def draw(bottle):
-        bottle.image.clip_composite_draw(0, 0, 500, 654, 4, 'r', bottle.x, bottle.y, 130, 180)
+        bottle.image.clip_composite_draw(0, 0, 500, 654, bottle.angle, 'r', bottle.x, bottle.y, 130, 180)
 
 
 class StateMachine:
@@ -65,6 +67,7 @@ class Bottle:
         self.x, self.y = x, y
         self.state_machine = StateMachine(self)
         self.state_machine.start()
+        self.angle = random.randint(1, 6)
 
     def draw(self):
         self.state_machine.draw()
