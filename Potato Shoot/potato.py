@@ -45,7 +45,7 @@ class Idle:
 
     @staticmethod
     def draw(potato):
-        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
+        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, potato.size, potato.size)
 
 
 # 좌우 이동
@@ -71,13 +71,20 @@ class Moving:
 
     @staticmethod
     def draw(potato):
-        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
+        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, potato.size, potato.size)
 
 
 # 굴리기 전 파워 설정
 class PowerCharging:
     @staticmethod
     def do(potato):
+        # 디버깅 코드
+        # 파워를 강제로 변환
+        # 높은 파워
+        # potato.power = 90
+        # 낮은 파워
+        # potato.power = 10
+        # 직접 조작
         potato.power += 1
         if potato.power > 100:
             potato.power = 0
@@ -88,11 +95,12 @@ class PowerCharging:
 
     @staticmethod
     def exit(potato, e):
-        pass
+        potato.speed -= potato.power / 100
+        potato.bb = potato.power
 
     @staticmethod
     def draw(potato):
-        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
+        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, potato.size, potato.size)
         for i in range(0, potato.power):
             draw_rectangle(100, 300, 100 + i * 3.5, 400)
         draw_rectangle(100, 300, 450, 400)
@@ -124,15 +132,17 @@ class AngleAdjustment:
 
     @staticmethod
     def draw(potato):
-        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, 100, 100)
-        point.image.clip_composite_draw(0, 0, 150, 150, potato.angle, 'r', potato.x, potato.y + 100, 100, 100)
+        potato.image.clip_composite_draw(0, 0, 150, 150, 0, 'r', potato.x, potato.y + 20, potato.size, potato.size)
+        point.image.clip_composite_draw(0, 0, 150, 150, potato.angle, 'r', potato.x, potato.y + 120, 100, 100)
 
 
 # 굴리기
 class Rolling:
     @staticmethod
     def do(potato):
-        potato.y += 5
+        potato.y += potato.speed
+        if potato.size > 10:
+            potato.size -= potato.speed / 10
         # 감자의 각도에 따라 굴러가는 각도 변경
         potato.x -= potato.angle / 2
         # 감자의 힘에 따라서 굴러가는 스핀 변경
@@ -141,12 +151,18 @@ class Rolling:
         if potato.y > 1500:
             potato.x = 270
             potato.y = 100
+            potato.size = 150
             potato.spin = 0
             potato.power = 0
+            potato.speed = 5
+            potato.bb = 0
             potato.angle = 0
             potato.dir = 1
             potato.turn -= 1
+            potato.case_num = 0
             potato.state_machine.cur_state = Idle
+            if potato.crash == 10:
+                potato.turn = 0
             if potato.turn == 0:
                 potato.turn = 2
                 play_mode.next_stage()
@@ -154,8 +170,7 @@ class Rolling:
 
     @staticmethod
     def enter(potato, e):
-        # 이곳에서 potato.case_num(경우의 수)을 계산
-        potato.case_num = (0.03076923076923077 * potato.x + -3.2076923076923084) + (-6 * potato.angle + 5) - 5
+        pass
 
     @staticmethod
     def exit(potato, e):
@@ -163,7 +178,8 @@ class Rolling:
 
     @staticmethod
     def draw(potato):
-        potato.image.clip_composite_draw(0, 0, 150, 150, potato.spin, 'r', potato.x, potato.y + 20, 100, 100)
+        potato.image.clip_composite_draw(0, 0, 150, 150, potato.spin, 'r', potato.x, potato.y + 20, potato.size,
+                                         potato.size)
 
 
 class StateMachine:
@@ -207,6 +223,10 @@ class Potato:
         self.way = 0
         self.turn = 2
         self.case_num = 0
+        self.size = 150
+        self.speed = 5
+        self.bb = 0
+        self.crash = 0
         self.image = load_image('Resource\\Potato\\normal1.png')
         self.state_machine = StateMachine(self)
         self.state_machine.start()
@@ -219,9 +239,10 @@ class Potato:
 
     def draw(self):
         self.state_machine.draw()
+        draw_rectangle(*self.get_bb())
 
     def get_bb(self):
-        return self.x - 50, self.y - 20, self.x + 50, self.y + 60
+        return self.x - self.bb - 10, self.y - self.bb, self.x + self.bb + 10, self.y + self.bb + 20
 
     def handle_collision(self, group, other):
         if group == 'potato:bottle':

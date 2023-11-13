@@ -66,7 +66,8 @@ def init():
     game_world.add_object(potato, 2)
     game_world.add_collision_pair('potato:bottle', potato, None)
 
-    game_world.add_collision_pair('potato:bottle', None, bottle[9])
+    for i in range(10):
+        game_world.add_collision_pair('potato:bottle', None, bottle[i])
 
 
 def finish():
@@ -77,7 +78,6 @@ def finish():
 def update():
     game_world.update()
     game_world.handle_collisions()
-    print(bottle[9].die_time)
 
 
 def draw():
@@ -113,5 +113,5 @@ def next_stage():
     # bottle을 지우고 bottle2를 만들고 bottle2를 bottle에 넣으면 오류가 안남 왜지??
     for i in range(10):
         bottle[i] = bottle2[i]
+        game_world.add_collision_pair('potato:bottle', None, bottle[i])
     game_world.add_objects(bottle, 2)
-    game_world.add_collision_pair('potato:bottle', None, bottle[9])
