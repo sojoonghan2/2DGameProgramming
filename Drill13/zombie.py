@@ -7,7 +7,6 @@ import game_world
 from behavior_tree import BehaviorTree, Action, Sequence, Condition, Selector
 import play_mode
 
-
 # zombie Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 RUN_SPEED_KMPH = 10.0  # Km / Hour
@@ -34,12 +33,11 @@ class Zombie:
             Zombie.font = load_font('ENCR10B.TTF', 40)
             Zombie.marker_image = load_image('hand_arrow.png')
 
-
     def __init__(self, x=None, y=None):
         self.x = x if x else random.randint(100, 1180)
         self.y = y if y else random.randint(100, 924)
         self.load_images()
-        self.dir = 0.0      # radian 값으로 방향을 표시
+        self.dir = 0.0  # radian 값으로 방향을 표시
         self.speed = 0.0
         self.frame = random.randint(0, 9)
         self.state = 'Idle'
@@ -47,15 +45,12 @@ class Zombie:
 
         self.build_behavior_tree()
 
-
     def get_bb(self):
         return self.x - 50, self.y - 50, self.x + 50, self.y + 50
-
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % FRAMES_PER_ACTION
         # fill here
-
 
     def draw(self):
         if math.cos(self.dir) < 0:
@@ -71,7 +66,6 @@ class Zombie:
     def handle_collision(self, group, other):
         if group == 'zombie:ball':
             self.ball_count += 1
-
 
     def set_target_location(self, x=None, y=None):
         pass

@@ -52,14 +52,16 @@ def update():
     game_world.update()
     game_world.handle_collisions()
 
+
 def draw():
     clear_canvas()
     game_world.render()
     update_canvas()
 
+
 def pause():
     pass
 
+
 def resume():
     pass
-

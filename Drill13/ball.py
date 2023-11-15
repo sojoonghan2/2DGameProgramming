@@ -3,10 +3,11 @@ import game_world
 import game_framework
 import random
 
+
 class Ball:
     image = None
 
-    def __init__(self, x = None, y = None):
+    def __init__(self, x=None, y=None):
         if Ball.image == None:
             Ball.image = load_image('ball21x21.png')
         self.x = x if x else random.randint(100, 1180)
