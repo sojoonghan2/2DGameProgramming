@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="4f20a90c-90e7-40fa-9fd3-aebfdbdb9a69" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drill13/behavior_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/Drill13/behavior_tree.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Drill13/zombie.py" beforeDir="false" afterPath="$PROJECT_DIR$/Drill13/zombie.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
