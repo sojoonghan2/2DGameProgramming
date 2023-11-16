@@ -6,7 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="4f20a90c-90e7-40fa-9fd3-aebfdbdb9a69" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Drill0506_again/Drill 05.py" beforeDir="false" afterPath="$PROJECT_DIR$/Drill0506_again/Drill 05.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drill13/behavior_tree.py" beforeDir="false" afterPath="$PROJECT_DIR$/Drill13/behavior_tree.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Drill13/zombie.py" beforeDir="false" afterPath="$PROJECT_DIR$/Drill13/zombie.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +26,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Drill09/boy.py" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Drill13/zombie.py" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
