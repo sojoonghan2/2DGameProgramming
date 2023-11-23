@@ -8,10 +8,7 @@ import game_world
 
 import server
 from boy import Boy
-
-# fill here
-
-
+from background import FixedBackground as Background
 
 
 def handle_events():
@@ -25,10 +22,14 @@ def handle_events():
             server.boy.handle_event(event)
 
 
-
 def init():
-    # fill here
-    pass
+    server.background = Background()
+    game_world.add_object(server.background, 0)
+
+    server.boy = Boy()
+    game_world.add_object(server.boy, 1)
+    server.boy.set_background(server.background)
+
 
 def finish():
     game_world.clear()
@@ -39,16 +40,16 @@ def update():
     game_world.update()
     game_world.handle_collisions()
 
+
 def draw():
     clear_canvas()
     game_world.render()
     update_canvas()
 
+
 def pause():
     pass
 
+
 def resume():
     pass
-
-
-
