@@ -1,4 +1,7 @@
 import pickle
+from boy import Boy
+from background import FixedBackground as Background
+import server
 
 objects = [[] for _ in range(4)]
 collision_pairs = {}
@@ -84,14 +87,19 @@ def handle_collisions():
 
 
 def all_objects():
-    # fill here
-    pass
+    for layer in objects:
+        for o in layer:
+            yield o
 
 
 def save():
-    # fill here
-    pass
+    game = [objects, collision_pairs]
+    with open('game.sav', 'wb') as f:
+        pickle.dump(game, f)
+
 
 def load():
-    # fill here
-    pass
+    global objects, collision_pairs
+    with open('game.sav', 'rb') as f:
+        game = pickle.load(f)
+        objects, collision_pairs = game[0], game[1]

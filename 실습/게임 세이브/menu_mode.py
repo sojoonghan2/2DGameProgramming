@@ -58,8 +58,15 @@ def create_new_world():
 
 
 def load_saved_world():
-    # fill here
-    pass
+    server.boy, server.background = None, None
+    game_world.load()
+    for o in game_world.all_objects():
+        if isinstance(o, Boy):
+            server.boy = o
+        elif isinstance(o, Background):
+            server.background = o
+        if server.boy and server.background:
+            break
 
 
 def handle_events():
