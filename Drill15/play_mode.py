@@ -34,7 +34,6 @@ def init():
     pass
 
 
-
 def finish():
     server.background = None
     server.boy = None

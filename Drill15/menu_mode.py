@@ -40,7 +40,21 @@ def create_new_world():
     server.boy = Boy()
     game_world.add_object(server.boy, 1)
 
-    # fill here
+    # 하드 코딩
+    # game_world.add_object(Zombie('zwi', 3800, 2560, 1.0), 1)
+    # game_world.add_object(Zombie('jeni', 4000, 2560, 2.0), 1)
+    # game_world.add_object(Zombie('jisu', 5000, 2560, 0.5), 1)
+
+    # 소프트 코딩
+    # 파일을 오픈해서 f에 연결
+    with open('zombie_data.toml', 'rb') as f:
+        zombie_data_list = tomllib.load(f)['zombies']
+        for item in zombie_data_list:
+            # zombie = Zombie(item['name'], item['x'], item['y'], item['size'])
+            zombie = Zombie()
+            zombie.__dict__.update(item)
+            game_world.add_object(zombie, 1)
+
 
 
 def load_saved_world():
